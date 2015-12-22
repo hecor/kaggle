@@ -26,19 +26,19 @@ def save(path, img):
 def denoise_image(inp):
     # estimate 'background' color by a median filter
     bg = signal.medfilt2d(inp, 11)
-    save('background.png', bg)
+#    save('background.png', bg)
 
     # compute 'foreground' mask as anything that is significantly darker than
     # the background
     mask = inp < bg - 0.1
-    save('foreground_mask.png', mask)
+#    save('foreground_mask.png', mask)
 
     # return the input value for all pixels in the mask or pure white otherwise
     return np.where(mask, inp, 1.0)
 
 
 if __name__ == '__main__':
-    inp_path = '/Users/zeying/xxb/kaggle/DenoisingImage/train/2.png'
+    inp_path = '/Users/zeying/xxb/kaggle/DenoisingImage/test/1.png'
     out_path = '/Users/zeying/xxb/kaggle/DenoisingImage/output.png'
 
     inp = load_image(inp_path)

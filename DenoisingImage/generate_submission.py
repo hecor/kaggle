@@ -1,15 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import os
-from BackgroundRemoval import denoise_image
+import os, sys
+import numpy as np
+from util import *
 
-out = open('submission.csv', 'w')
+exec('from %s import denoise_image' % (sys.argv[1],))
 
+print 'id,value'
 for root, dirs, files in os.walk('./test'):
     for f in files:
-        dirty_image = os.path.join(root, f)
-        print 'processing', dirty_image
+        file_id = f.split('.')[0]
+        dirty_image = load_image(os.path.join(root, f))
         clean_image = denoise_image(dirty_image)
-        print clean_image[0][0]
+        for (x,y), value in np.ndenumerate(clean_image):
+            print file_id+'_'+str(x+1)+'_'+str(y+1)+','+str(value)
 

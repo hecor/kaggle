@@ -11,17 +11,10 @@ and we want to remove everything that is not part of this foreground object.
 
 This should produce results somewhere around 0.06 on the leaderboard.
 """
+
 import numpy as np
 from scipy import signal
-from PIL import Image
 
-
-def load_image(path):
-    return np.asarray(Image.open(path))/255.0
-
-def save(path, img):
-    tmp = np.asarray(img*255.0, dtype=np.uint8)
-    Image.fromarray(tmp).save(path)
 
 def denoise_image(inp):
     # estimate 'background' color by a median filter
@@ -35,14 +28,4 @@ def denoise_image(inp):
 
     # return the input value for all pixels in the mask or pure white otherwise
     return np.where(mask, inp, 1.0)
-
-
-if __name__ == '__main__':
-    inp_path = '/Users/zeying/xxb/kaggle/DenoisingImage/test/1.png'
-    out_path = '/Users/zeying/xxb/kaggle/DenoisingImage/output.png'
-
-    inp = load_image(inp_path)
-    out = denoise_image(inp)
-
-    save(out_path, out)
 

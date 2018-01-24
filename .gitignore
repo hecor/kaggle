@@ -4,6 +4,7 @@ __pycache__/
 .ipynb_checkpoints
 
 *.csv
+.DS_Store
 
 # C extensions
 *.so
